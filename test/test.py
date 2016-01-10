@@ -9,15 +9,15 @@ from bs4 import BeautifulSoup
 import re
 import random
 import csv
-from nt import mkdir
 import os
+import webbrowser
 
 class Website():
     def __init__(self, url):
         self.__url = url # save root url
         self.__soup = self.__getSoup()
         self.__siteMap = set()
-        #init a csv ifle
+       
         
         
     
@@ -36,7 +36,6 @@ class Website():
     
     
     def getSiteMap(self, relativeurl = ''):
-        list = []
         soup = self.__getSoup(relativeurl)
         if soup == None:
             return
@@ -44,9 +43,9 @@ class Website():
             title = soup.h1.get_text()
             p = soup.find('', {'id': 'mw-content-text'}).find('p').get_text()
             href = soup.find('', {'id': 'ca-edit'}).find('span').find('a').attrs['href']
-            list.append(title)
-            list.append(p)
-            list.append(href)
+            self.__list.append(title)
+            self.__list.append(p)
+            self.__list.append(href)
             print(title)
             print(p)
             print(href)
@@ -55,7 +54,7 @@ class Website():
             csvFile = open('../files/editors.csv', 'at', encoding='utf-8')
             writer = csv.writer(csvFile)
             try:
-                writer.writerow(list)
+                writer.writerow(self.__list)
             finally:
                 csvFile.close()
                 
@@ -68,6 +67,8 @@ class Website():
         for link in links:
             if link.attrs['href'] not in self.__siteMap:
                 newPage = link.attrs['href']
+                self.__list = []
+                self.__list.append(newPage)
                 self.__siteMap.add(newPage)
                 print('\n------------->' + newPage)
                 self.getSiteMap(newPage)
@@ -140,8 +141,16 @@ class Website():
     def getImagebyRE(self):
         for img in self.__soup.find_all('img', {'src': re.compile("\.\.\/img\/gifts/img.*\.jpg")}):
             print(img)
-            
-            
+    @staticmethod        
+    def openCSV(url, path):
+        dir = os.path.dirname(path)
+        if not os.path.exists(dir):
+            return None
+        file = open(path, 'rt', encoding = 'utf-8')
+        CSVReader = csv.reader(file)
+        for row in CSVReader:
+            if row:
+                webbrowser.open(url + row[0])
             
 url = 'https://en.wikipedia.org'
 site = Website(url)
@@ -152,7 +161,39 @@ print(site.getTitle())
 
 # site.sixDegree('/wiki/Kevin_Bacon')
 
-site.getSiteMap()
+# site.getSiteMap()
+# Website.openCSV(url, '../files/editors.csv')
+#open csv and open links
 
 
+from pdfminer.pdfinterp import PDFResourceManager, process_pdf
+from pdfminer.converter import TextConverter
+from pdfminer.layout import LAParams
+from io import StringIO
+from io import open
 
+
+def readPDF(pdfFile):
+    rsrcmgr = PDFResourceManager()
+    retstr = StringIO()
+    laparams = LAParams()
+    device = TextConverter(rsrcmgr, retstr, laparams=laparams)
+    process_pdf(rsrcmgr, device, pdfFile)
+    device.close()
+    content = retstr.getvalue()
+    retstr.close()
+    return content
+
+
+pdfFile = urlopen("http://fls.arbella.com/communications/451683.Arbella.webready.pdf");
+outputString = readPDF(pdfFile)
+result = re.findall('premium[\s\S]*?(\d+(,\d+)+)', outputString, re.IGNORECASE)
+# premium = 0
+# for g1, g2 in result:
+#     g1v = int(g1.replace(',',''))
+#     if g1v > premium:
+#         premium = g1v
+    
+# print(premium)
+print(outputString)
+pdfFile.close()
