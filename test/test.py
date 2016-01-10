@@ -185,9 +185,9 @@ def readPDF(pdfFile):
     return content
 
 
-pdfFile = urlopen("http://fls.arbella.com/communications/451683.Arbella.webready.pdf");
-outputString = readPDF(pdfFile)
-result = re.findall('premium[\s\S]*?(\d+(,\d+)+)', outputString, re.IGNORECASE)
+# pdfFile = urlopen("http://fls.arbella.com/communications/451683.Arbella.webready.pdf");
+# outputString = readPDF(pdfFile)
+# result = re.findall('premium[\s\S]*?(\d+(,\d+)+)', outputString, re.IGNORECASE)
 # premium = 0
 # for g1, g2 in result:
 #     g1v = int(g1.replace(',',''))
@@ -195,5 +195,15 @@ result = re.findall('premium[\s\S]*?(\d+(,\d+)+)', outputString, re.IGNORECASE)
 #         premium = g1v
     
 # print(premium)
-print(outputString)
-pdfFile.close()
+# print(outputString)
+# pdfFile.close()
+
+
+
+from selenium import webdriver
+import time
+driver = webdriver.PhantomJS(executable_path= os.getcwd() + '\phantomjs.exe') #windows code
+driver.get("http://pythonscraping.com/pages/javascript/ajaxDemo.html")
+time.sleep(3)
+print(driver.find_element_by_id("content").text)
+driver.close()
