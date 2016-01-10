@@ -8,12 +8,17 @@ from urllib.error import HTTPError
 from bs4 import BeautifulSoup
 import re
 import random
+import csv
+from nt import mkdir
+import os
 
 class Website():
     def __init__(self, url):
         self.__url = url # save root url
         self.__soup = self.__getSoup()
         self.__siteMap = set()
+        #init a csv ifle
+        
         
     
     def __getSoup(self, relativeurl = ''):
@@ -31,13 +36,29 @@ class Website():
     
     
     def getSiteMap(self, relativeurl = ''):
+        list = []
         soup = self.__getSoup(relativeurl)
         if soup == None:
             return
         try:
-            print(soup.h1.get_text())
-            print(soup.find('', {'id': 'mw-content-text'}).find('p').get_text())
-            print(soup.find('', {'id': 'ca-edit'}).find('span').find('a').attrs['href'])
+            title = soup.h1.get_text()
+            p = soup.find('', {'id': 'mw-content-text'}).find('p').get_text()
+            href = soup.find('', {'id': 'ca-edit'}).find('span').find('a').attrs['href']
+            list.append(title)
+            list.append(p)
+            list.append(href)
+            print(title)
+            print(p)
+            print(href)
+            if not os.path.exists('../files/'):
+                os.makedirs('../files/')
+            csvFile = open('../files/editors.csv', 'at', encoding='utf-8')
+            writer = csv.writer(csvFile)
+            try:
+                writer.writerow(list)
+            finally:
+                csvFile.close()
+                
         except AttributeError:
             pass
         try:
@@ -132,3 +153,6 @@ print(site.getTitle())
 # site.sixDegree('/wiki/Kevin_Bacon')
 
 site.getSiteMap()
+
+
+
