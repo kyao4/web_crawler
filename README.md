@@ -13,8 +13,8 @@ This web crawler is designed specifically for scraping premium and annual revenu
 
 1. First install [pip](https://pip.pypa.io/en/stable/installing/)
    then you can install all the dependencies by typing 
-
-    pip install [Dependency name]
+		 
+        pip install [Dependency name]
 
    on you terminal
    
