@@ -21,9 +21,9 @@ class Website():
         
         
     
-    def __getSoup(self, relativeurl = ''):
+    def __getSoup(self, rel_url = ''):
         try:
-            conn = urlopen(self.__url + relativeurl)
+            conn = urlopen(self.__url + rel_url)
         except HTTPError as e:
             print(e)
             return None
@@ -161,28 +161,28 @@ print(site.getTitle())
 
 # site.sixDegree('/wiki/Kevin_Bacon')
 
-# site.getSiteMap()
+site.getSiteMap()
 # Website.openCSV(url, '../files/editors.csv')
 #open csv and open links
 
 
-from pdfminer.pdfinterp import PDFResourceManager, process_pdf
-from pdfminer.converter import TextConverter
-from pdfminer.layout import LAParams
-from io import StringIO
-from io import open
-
-
-def readPDF(pdfFile):
-    rsrcmgr = PDFResourceManager()
-    retstr = StringIO()
-    laparams = LAParams()
-    device = TextConverter(rsrcmgr, retstr, laparams=laparams)
-    process_pdf(rsrcmgr, device, pdfFile)
-    device.close()
-    content = retstr.getvalue()
-    retstr.close()
-    return content
+# from pdfminer.pdfinterp import PDFResourceManager, process_pdf
+# from pdfminer.converter import TextConverter
+# from pdfminer.layout import LAParams
+# from io import StringIO
+# from io import open
+# 
+# 
+# def readPDF(pdfFile):
+#     rsrcmgr = PDFResourceManager()
+#     retstr = StringIO()
+#     laparams = LAParams()
+#     device = TextConverter(rsrcmgr, retstr, laparams=laparams)
+#     process_pdf(rsrcmgr, device, pdfFile)
+#     device.close()
+#     content = retstr.getvalue()
+#     retstr.close()
+#     return content
 
 
 # pdfFile = urlopen("http://fls.arbella.com/communications/451683.Arbella.webready.pdf");
@@ -199,11 +199,11 @@ def readPDF(pdfFile):
 # pdfFile.close()
 
 
-
-from selenium import webdriver
-import time
-driver = webdriver.PhantomJS(executable_path= os.getcwd() + '\phantomjs.exe') #windows code
-driver.get("http://pythonscraping.com/pages/javascript/ajaxDemo.html")
-time.sleep(3)
-print(driver.find_element_by_id("content").text)
-driver.close()
+ 
+# from selenium import webdriver
+# import time
+# driver = webdriver.PhantomJS(executable_path= os.getcwd() + '\phantomjs.exe') #windows code
+# driver.get("http://phx.corporate-ir.net/External.File?item=UGFyZW50SUQ9NTc5MzE0fENoaWxkSUQ9Mjg0MjM1fFR5cGU9MQ==&amp;t=1")
+# time.sleep(3)
+# print(driver.page_source)
+# driver.close()
