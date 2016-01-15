@@ -1,0 +1,6 @@
+some sites may return httperror 403 which means that they recognize this program as a bot,
+so we use real browser to access it
+
+some sites contain meta tag like this one <meta content="1; URL=/aegislink.html" http-equiv="Refresh">
+which means it will wait for [content] seconds then jump to [URL] so we have to identify this site and use
+new address to openurl
