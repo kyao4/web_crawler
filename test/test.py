@@ -161,38 +161,38 @@ print(site.getTitle())
 
 # site.sixDegree('/wiki/Kevin_Bacon')
 
-site.getSiteMap()
-# Website.openCSV(url, '../files/editors.csv')
-#open csv and open links
+# site.getSiteMap()
+#  Website.openCSV(url, '../files/editors.csv')
+# open csv and open links
 
 
-# from pdfminer.pdfinterp import PDFResourceManager, process_pdf
-# from pdfminer.converter import TextConverter
-# from pdfminer.layout import LAParams
-# from io import StringIO
-# from io import open
-# 
-# 
-# def readPDF(pdfFile):
-#     rsrcmgr = PDFResourceManager()
-#     retstr = StringIO()
-#     laparams = LAParams()
-#     device = TextConverter(rsrcmgr, retstr, laparams=laparams)
-#     process_pdf(rsrcmgr, device, pdfFile)
-#     device.close()
-#     content = retstr.getvalue()
-#     retstr.close()
-#     return content
+from pdfminer.pdfinterp import PDFResourceManager, process_pdf
+from pdfminer.converter import TextConverter
+from pdfminer.layout import LAParams
+from io import StringIO
+from io import open
+ 
+ 
+def readPDF(pdfFile):
+    rsrcmgr = PDFResourceManager()
+    retstr = StringIO()
+    laparams = LAParams()
+    device = TextConverter(rsrcmgr, retstr, laparams=laparams)
+    process_pdf(rsrcmgr, device, pdfFile)
+    device.close()
+    content = retstr.getvalue()
+    retstr.close()
+    return content
 
 
-# pdfFile = urlopen("http://fls.arbella.com/communications/451683.Arbella.webready.pdf");
-# outputString = readPDF(pdfFile)
-# result = re.findall('premium[\s\S]*?(\d+(,\d+)+)', outputString, re.IGNORECASE)
-# premium = 0
-# for g1, g2 in result:
-#     g1v = int(g1.replace(',',''))
-#     if g1v > premium:
-#         premium = g1v
+pdfFile = urlopen("http://s1.q4cdn.com/405296365/files/doc_financials/2015/ACE-Limited-2014-Annual-Report.pdf");
+outputString = readPDF(pdfFile)
+result = re.findall('premium[\s\S]*?(\d+(,\d+)+)', outputString, re.IGNORECASE)
+premium = 0
+for g1, g2 in result:
+    g1v = int(g1.replace(',',''))
+    if g1v > premium:
+        premium = g1v
     
 # print(premium)
 # print(outputString)

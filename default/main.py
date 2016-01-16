@@ -15,6 +15,14 @@ import time
 import webbrowser
 import re
 
+
+from pdfminer.pdfinterp import PDFResourceManager, process_pdf
+from pdfminer.converter import TextConverter
+from pdfminer.layout import LAParams
+from io import StringIO
+from io import open
+from ctypes.wintypes import PINT
+
 class Website():
     def __init__(self, url):
         self.__url = url # save root url
@@ -29,15 +37,15 @@ class Website():
         
     def getPremium(self):
         self.getTargeturl()
-        print('------------------------->internal_target')
+#         print('------------------------->internal_target')
         #add filtered tag to target set
-        for tag in self.__interalTargetTag:
-            print(tag)        
+#         for tag in self.__interalTargetTag:
+#             print(tag)        
+#         
+#         print('------------------------->external_target')
+#         for tag in self.__exteralTargetTag:
+#             print(tag)        
         
-        print('------------------------->external_target')
-        for tag in self.__exteralTargetTag:
-            print(tag)        
-        return 0
         targetData = self.getTargetData()
         result = 0
         for v in targetData:
@@ -72,12 +80,9 @@ class Website():
         self.__exteralTargetTag = {tag for tag in self.__exteralTargetTag if 
                             re.search('annual.*?report|press.*?release|about|investor', tag.attrs['href'], re.IGNORECASE) or 
                             re.search('annual.*?report|press.*?release|about|investor', str(tag.get_text().strip()), re.IGNORECASE)}        
-        print('------------------------->internal')
+#         print('------------------------->internal')
         #add filtered tag to target set
-        for tag in cur_inter_tag:
-            print(tag)
-#         print('------------------------->external')
-#         for tag in self.__exteralTargetTag:
+#         for tag in cur_inter_tag:
 #             print(tag)
         #search all the internal set recursively
         for tag in cur_inter_tag:
@@ -101,7 +106,7 @@ class Website():
             
     def getExternalLinks(self):
         externalTag = set()
-        for tag in self.__currentSoup.find_all('a', {'href': re.compile('^(http|www)((?!' + self.extractRooturl() + ').)*$')}): #exclude root url
+        for tag in self.__currentSoup.find_all('a', {'href': re.compile('^(http|www|//)((?!' + self.extractRooturl() + ').)*$')}): #exclude root url
             if tag not in self.__exteralTargetTag:
 #                 href = tag.attrs['href']                
 #                 self.__externalurl.add(href)
@@ -110,16 +115,69 @@ class Website():
 #                 print(tag)
         return externalTag
     
+    
+    @staticmethod
+    def readPDF(pdfFile):
+        try:
+            rsrcmgr = PDFResourceManager()
+            retstr = StringIO()
+            laparams = LAParams()
+            device = TextConverter(rsrcmgr, retstr, laparams=laparams)
+            process_pdf(rsrcmgr, device, pdfFile)
+            device.close()
+            content = retstr.getvalue()
+            retstr.close()
+        except AttributeError as e:
+            print(e)
+            return None
+        return content    
+    
+    @staticmethod
+    def getpdfFile(url):
+        if not re.match('^http', url, re.IGNORECASE):
+            url = url.replace('//', 'https://')
+        try:
+            pdfFile = urlopen(url)
+        except HTTPError as e:
+            print(e)
+            return None
+        except ValueError as e:
+            print(e)
+            return None
+        except URLError as e:
+            print(e)
+            return None
+        return pdfFile
+    
+    
     def getTargetData(self):
         #at this point we should have all the target tag(url) in this website, all we need 
         #to do is search each page's table and search pdf for target data.
-        targetpdf_internal = {tag.attrs['href'] for tag in self.__interalTargetTag if tag.attrs['href'].search(r'?!' + self.extractRooturl() + '.*\.pdf')}
-        targetpdf_internal.union({tag.attrs['href'] for tag in self.__interalTargetTag})
-        targetpdf_external = set()
+        targetpdf_internal = {re.sub('https?://|www.' + self.extractRooturl(), '', tag.attrs['href']) for tag in self.__interalTargetTag if re.search('.*\.pdf', tag.attrs['href'], re.IGNORECASE)}
+        targetpdf_external = {tag.attrs['href'] for tag in self.__exteralTargetTag if re.search('.*\.pdf', tag.attrs['href'], re.IGNORECASE)}
+        resultList = []
+        for url in targetpdf_external:
+            pdfFile = Website.getpdfFile(url)
+            if not pdfFile:
+                continue
+            outputString = Website.readPDF(pdfFile)
+            if not outputString:
+                continue
+            resultList_ex = re.findall('premium[\s\S]*?(\d+(,\d+)+)', outputString, re.IGNORECASE)
+            resultList.extend(resultList_ex)
+        for url in targetpdf_internal:
+            pdfFile = Website.getpdfFile(url)
+            if not pdfFile:
+                continue
+            outputString = Website.readPDF(pdfFile)
+            if not outputString:
+                continue
+            resultList_in = re.findall('premium[\s\S]*?(\d+(,\d+)+)', outputString, re.IGNORECASE)
+            resultList.extend(resultList_in)
+#             print(url,'\n' + url_ex)
+        return resultList
         
         
-        
-        pass
     
     def extractRooturl(self):
         url = re.sub('http://|www.', '', self.__url)
@@ -153,13 +211,18 @@ class Website():
         except URLError as e:
             print(e, self.__url + rel_url)
             return None
+        except ConnectionError as e:
+            print(e)
+            return None
+        
         try:
             soup = BeautifulSoup(conn.read(), "html.parser")
             
         except AttributeError as e:
             print(e, self.__url + rel_url)
             return None
-        
+        finally:
+            conn.close()
         
 #         if self.__url == 'http://www.aegislink.com/':
 #             pass
@@ -201,7 +264,8 @@ class Website():
             except AttributeError as e:
                 print(e, self.__url + rel_url)
                 return None
-        
+            finally:
+                conn.close()
         return soup
     
     
@@ -222,13 +286,15 @@ class Website():
     
     
         
+        
+Website.getpdfFile('//s1.q4cdn.com/405296365/files/doc_presentations/2015/ACE-Chubb-Investor-Presentation-July-1-2015.pdf')
 # url = 'http://www.allstate.com/'
 # site = Website(url)
 # print(site.getTitle())
 with open('list_of_url.csv', 'rt') as urlFile:
     csvReader = csv.reader(urlFile)
     #                                                  stop when shortest sequence is done
-    siteList = [ Website(url[0].strip())  for url,i in zip(csvReader, range(5)) if url[0].strip()]
+    siteList = [ Website(url[0].strip())  for url,i in zip(csvReader, range(1)) if url[0].strip()]
     for site in siteList:
         print(site.getTitle())
         print('premium', site.getPremium())
