@@ -37,14 +37,14 @@ class Website():
         
     def getPremium(self):
         self.getTargeturl()
-#         print('------------------------->internal_target')
-        #add filtered tag to target set
-#         for tag in self.__interalTargetTag:
-#             print(tag)        
-#         
-#         print('------------------------->external_target')
-#         for tag in self.__exteralTargetTag:
-#             print(tag)        
+        print('------------------------->internal_target')
+#         add filtered tag to target set
+        for tag in self.__interalTargetTag:
+            print(tag)        
+         
+        print('------------------------->external_target')
+        for tag in self.__exteralTargetTag:
+            print(tag)        
         
         targetData = self.getTargetData()
         result = 0
@@ -63,9 +63,9 @@ class Website():
         # first get all internal and external tags and links
         #caution: add all the internal url to internalurl set before filter
         cur_inter_tag = self.getInternalLinks()
-        for tag in cur_inter_tag:
-            if tag.attrs['href'] == '//s1.q4cdn.com/405296365/files/doc_financials/2015/ACE-Limited-2014-Annual-Report.pdf':
-                pass
+#         for tag in cur_inter_tag:
+#             if tag.attrs['href'] == '//s1.q4cdn.com/405296365/files/doc_financials/2015/ACE-Limited-2014-Annual-Report.pdf':
+#                 pass
         cur_exter_tag = self.getExternalLinks()
         self.__interalurl = self.__interalurl.union({tag.attrs['href']for tag in cur_inter_tag})
         self.__interalTargetTag = self.__interalTargetTag.union(cur_inter_tag)
@@ -155,6 +155,8 @@ class Website():
         #to do is search each page's table and search pdf for target data.
         targetpdf_internal = {re.sub('https?://|www.' + self.extractRooturl(), '', tag.attrs['href']) for tag in self.__interalTargetTag if re.search('.*\.pdf', tag.attrs['href'], re.IGNORECASE)}
         targetpdf_external = {tag.attrs['href'] for tag in self.__exteralTargetTag if re.search('.*\.pdf', tag.attrs['href'], re.IGNORECASE)}
+        # add internal root url
+        targetpdf_internal = [re.sub('^/', self.__url, url)  for url in targetpdf_internal]
         resultList = []
         for url in targetpdf_external:
             pdfFile = Website.getpdfFile(url)
@@ -163,8 +165,11 @@ class Website():
             outputString = Website.readPDF(pdfFile)
             if not outputString:
                 continue
-            resultList_ex = re.findall('premium[\s\S]*?(\d+(,\d+)+)', outputString, re.IGNORECASE)
+            
+            resultList_ex = [int(premium[0].replace(',', '')) for premium in re.findall('premium[\s\S]*?(\d+(,\d+)+)', outputString, re.IGNORECASE)]
             resultList.extend(resultList_ex)
+            if resultList:
+                return resultList
         for url in targetpdf_internal:
             pdfFile = Website.getpdfFile(url)
             if not pdfFile:
@@ -172,8 +177,10 @@ class Website():
             outputString = Website.readPDF(pdfFile)
             if not outputString:
                 continue
-            resultList_in = re.findall('premium[\s\S]*?(\d+(,\d+)+)', outputString, re.IGNORECASE)
+            resultList_in = [int(premium[0].replace(',', '')) for premium in re.findall('premium[\s\S]*?(\d+(,\d+)+)', outputString, re.IGNORECASE)]
             resultList.extend(resultList_in)
+            if resultList:
+                return resultList
 #             print(url,'\n' + url_ex)
         return resultList
         
@@ -284,21 +291,31 @@ class Website():
         webbrowser.open(self.__url + rel_url)
     
     
-    
+# def readPDF(pdfFile):
+#     rsrcmgr = PDFResourceManager()
+#     retstr = StringIO()
+#     laparams = LAParams()
+#     device = TextConverter(rsrcmgr, retstr, laparams=laparams)
+#     process_pdf(rsrcmgr, device, pdfFile)
+#     device.close()
+#     content = retstr.getvalue()
+#     retstr.close()
+#     return content    
         
         
-Website.getpdfFile('//s1.q4cdn.com/405296365/files/doc_presentations/2015/ACE-Chubb-Investor-Presentation-July-1-2015.pdf')
+# pdfFile = Website.getpdfFile('//s1.q4cdn.com/405296365/files/doc_presentations/2015/ACE-Chubb-Investor-Presentation-July-1-2015.pdf')
+# outputString = Website.readPDF(pdfFile)
+# print(outputString)
 # url = 'http://www.allstate.com/'
 # site = Website(url)
 # print(site.getTitle())
 with open('list_of_url.csv', 'rt') as urlFile:
     csvReader = csv.reader(urlFile)
     #                                                  stop when shortest sequence is done
-    siteList = [ Website(url[0].strip())  for url,i in zip(csvReader, range(1)) if url[0].strip()]
+    siteList = [ Website(url[0].strip())  for url,i in zip(csvReader, range(20)) if url[0].strip()]
     for site in siteList:
         print(site.getTitle())
         print('premium', site.getPremium())
-        
         
          
     
