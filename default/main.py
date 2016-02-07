@@ -7,22 +7,23 @@ Created on 2016/1/7
 
 from urllib.request import urlopen
 from urllib.error import HTTPError, URLError
+from urllib.parse import quote
 from bs4 import BeautifulSoup
-import csv
 from selenium import webdriver
 import os
 import time
 import webbrowser
 import re
-
+import csv
 
 from pdfminer.pdfinterp import PDFResourceManager, process_pdf
 from pdfminer.converter import TextConverter
 from pdfminer.layout import LAParams
 from io import StringIO
-from io import open
-from ctypes.wintypes import PINT
-
+# from pdfminer.pdfparser import PDFParser, PDFDocument, PDFNoOutlines
+# from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
+# from pdfminer.converter import PDFPageAggregator
+# from pdfminer.layout import LAParams, LTTextBox, LTTextLine, LTFigure, LTImage
 class Website():
     def __init__(self, url):
         self.__url = url # save root url
@@ -37,15 +38,15 @@ class Website():
         
     def getPremium(self):
         self.getTargeturl()
-        print('------------------------->internal_target')
-#         add filtered tag to target set
-        for tag in self.__interalTargetTag:
-            print(tag)        
+#         print('------------------------->internal_target')
+# #         add filtered tag to target set
+#         for tag in self.__interalTargetTag:
+#             print(tag)        
+#           
+#         print('------------------------->external_target')
+#         for tag in self.__exteralTargetTag:
+#             print(tag)        
          
-        print('------------------------->external_target')
-        for tag in self.__exteralTargetTag:
-            print(tag)        
-        
         targetData = self.getTargetData()
         result = 0
         for v in targetData:
@@ -118,6 +119,7 @@ class Website():
     
     @staticmethod
     def readPDF(pdfFile):
+        pass
         try:
             rsrcmgr = PDFResourceManager()
             retstr = StringIO()
@@ -137,6 +139,7 @@ class Website():
         if not re.match('^http', url, re.IGNORECASE):
             url = url.replace('//', 'https://')
         try:
+#             print(quote(url), safe='/\:')
             pdfFile = urlopen(url)
         except HTTPError as e:
             print(e)
@@ -156,7 +159,17 @@ class Website():
         targetpdf_internal = {re.sub('https?://|www.' + self.extractRooturl(), '', tag.attrs['href']) for tag in self.__interalTargetTag if re.search('.*\.pdf', tag.attrs['href'], re.IGNORECASE)}
         targetpdf_external = {tag.attrs['href'] for tag in self.__exteralTargetTag if re.search('.*\.pdf', tag.attrs['href'], re.IGNORECASE)}
         # add internal root url
-        targetpdf_internal = [re.sub('^/', self.__url, url)  for url in targetpdf_internal]
+        targetpdf_internal = [re.sub('^/(?!/)', self.__url, url)  for url in targetpdf_internal]
+        
+        #debug code
+        print('------------------------->internal_target')
+        for url in targetpdf_internal:
+            print(url)
+            
+        print('------------------------->external_target')
+        for url in targetpdf_external:
+            print(url)
+        
         resultList = []
         for url in targetpdf_external:
             pdfFile = Website.getpdfFile(url)
@@ -166,10 +179,19 @@ class Website():
             if not outputString:
                 continue
             
-            resultList_ex = [int(premium[0].replace(',', '')) for premium in re.findall('premium[\s\S]*?(\d+(,\d+)+)', outputString, re.IGNORECASE)]
+#             resultList_ex = [int(premium[1].replace(',', '')) for premium in re.findall('(premium[s]? written|written premium[s]?)[\s\S]{0,500}?(\d+(,\d+)+)|written premium[s]?[\s\S]{0,500}?(\d+(,\d+)+)', outputString, re.IGNORECASE)]
+            #process result by using regular expression
+            resultList_ex = []
+            for premium in re.findall(r'(premium[s]? written|written premium[s]?)[\s\S]{0,500}?(\d+(,\d+)+)([\s\S]{1,60}(\d{3}(,\d+)+))?([\s\S]{1,275}(\d,\d{3},(\d+)+))?', outputString, re.IGNORECASE):
+                if len(premium[1])> 2 :
+                    resultList_ex.append(int(premium[1].replace(',', '')))
+                if len(premium[4])> 2 :
+                    resultList_ex.append(int(premium[4].replace(',', '')))
+                if len(premium[7])> 2 :
+                    resultList_ex.append(int(premium[7].replace(',', '')))
             resultList.extend(resultList_ex)
-            if resultList:
-                return resultList
+        if resultList:
+            return resultList
         for url in targetpdf_internal:
             pdfFile = Website.getpdfFile(url)
             if not pdfFile:
@@ -177,7 +199,15 @@ class Website():
             outputString = Website.readPDF(pdfFile)
             if not outputString:
                 continue
-            resultList_in = [int(premium[0].replace(',', '')) for premium in re.findall('premium[\s\S]*?(\d+(,\d+)+)', outputString, re.IGNORECASE)]
+#             resultList_in = [int(premium[1].replace(',', '')) for premium in re.findall('(premium[s]? written|written premium[s]?)[\s\S]{0,500}?(\d+(,\d+)+)|written premium[s]?[\s\S]{0,500}?(\d+(,\d+)+)', outputString, re.IGNORECASE)]
+            resultList_in = []
+            for premium in re.findall(r'(premium[s]? written|written premium[s]?)[\s\S]{0,500}?(\d+(,\d+)+)([\s\S]{1,60}(\d{3}(,\d+)+))?([\s\S]{1,275}(\d,\d{3},(\d+)+))?', outputString, re.IGNORECASE):
+                if len(premium[1])> 2 :
+                    resultList_in.append(int(premium[1].replace(',', '')))
+                if len(premium[4])> 2 :
+                    resultList_in.append(int(premium[4].replace(',', '')))
+                if len(premium[7])> 2 :
+                    resultList_in.append(int(premium[7].replace(',', '')))
             resultList.extend(resultList_in)
             if resultList:
                 return resultList
@@ -289,26 +319,47 @@ class Website():
 
     def openSite(self, rel_url = ''):
         webbrowser.open(self.__url + rel_url)
-    
-    
-# def readPDF(pdfFile):
+     
+     
+# def extractPremium(pdfFile):
+# 
+#     # create a parser object associated with the file object
+#     parser = PDFParser(pdfFile)
+#     # create a PDFDocument object that stores the document structure
+#     doc = PDFDocument()
+#     # connect the parser and document objects
+#     parser.set_document(doc)
+#     doc.set_parser(parser)
+#     # supply the password for initialization
+#     doc.initialize('')
+# 
+#     if not doc.is_extractable:
+#         return 0
+#     
 #     rsrcmgr = PDFResourceManager()
-#     retstr = StringIO()
 #     laparams = LAParams()
-#     device = TextConverter(rsrcmgr, retstr, laparams=laparams)
-#     process_pdf(rsrcmgr, device, pdfFile)
-#     device.close()
-#     content = retstr.getvalue()
-#     retstr.close()
-#     return content    
+#     device = PDFPageAggregator(rsrcmgr, laparams=laparams)
+#     interpreter = PDFPageInterpreter(rsrcmgr, device)
+# 
+#     # Process each page contained in the document.
+#     for page in doc.get_pages():
+#         interpreter.process_page(page)
+#         layout = device.get_result()
+#         print(layout)
         
-        
-# pdfFile = Website.getpdfFile('//s1.q4cdn.com/405296365/files/doc_presentations/2015/ACE-Chubb-Investor-Presentation-July-1-2015.pdf')
+# pdfFile = Website.getpdfFile('http://s1.q4cdn.com/131015182/files/doc_financials/annual/AIZ_Assurant_AR_2014_v003_f3s0s9.pdf')
 # outputString = Website.readPDF(pdfFile)
 # print(outputString)
+
+
+# fout = open('../result3.txt', 'wt',encoding = 'utf-8')
+# fout.write(outputString)
+# fout.close()
+# extractPremium(pdfFile)
 # url = 'http://www.allstate.com/'
 # site = Website(url)
 # print(site.getTitle())
+
 with open('list_of_url.csv', 'rt') as urlFile:
     csvReader = csv.reader(urlFile)
     #                                                  stop when shortest sequence is done
@@ -316,6 +367,6 @@ with open('list_of_url.csv', 'rt') as urlFile:
     for site in siteList:
         print(site.getTitle())
         print('premium', site.getPremium())
-        
+         
          
     

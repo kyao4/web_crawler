@@ -1,0 +1,294 @@
+ACE Group: One of the World¡¯s Largest Multiline Property and Casualty Insurers
+<urlopen error [Errno 11001] getaddrinfo failed> http://www.acegroup.com
+------------------------->internal_target
+//s1.q4cdn.com/405296365/files/doc_downloads/2015/3rd-Quarter-2015-Earnings-Press-Release.pdf
+//s1.q4cdn.com/405296365/files/doc_financials/2015/Q4/4th-Quarter-2015_Chubb-Limited-Earnings-Press-Release_January-26-2016.pdf
+//s1.q4cdn.com/405296365/files/doc_financials/2015/ACE-Limited-2014-Annual-Report.pdf
+//s1.q4cdn.com/405296365/files/doc_financials/2015/2nd-Quarter-2015-Earnings-Press-Release.pdf
+investors.acegroup.cominvestors.acegroup.com/files/doc_downloads/ACERatings Summary as of August 8, 2013.pdf
+------------------------->external_target
+//s1.q4cdn.com/405296365/files/doc_downloads/2015/3rd-Quarter-2015-Earnings-Press-Release.pdf
+//s1.q4cdn.com/405296365/files/doc_financials/2015/Q4/4th-Quarter-2015_Chubb-Limited-Earnings-Press-Release_January-26-2016.pdf
+//s1.q4cdn.com/405296365/files/doc_financials/2015/ACE-Limited-2014-Annual-Report.pdf
+//s1.q4cdn.com/405296365/files/doc_financials/2015/2nd-Quarter-2015-Earnings-Press-Release.pdf
+WARNING:root:Cannot locate objid=3666
+WARNING:root:Cannot locate objid=5453
+WARNING:root:Cannot locate objid=2700
+WARNING:root:Too many boxes (152) to group, skipping.
+WARNING:root:Too many boxes (155) to group, skipping.
+WARNING:root:Too many boxes (110) to group, skipping.
+WARNING:root:Too many boxes (107) to group, skipping.
+WARNING:root:Too many boxes (101) to group, skipping.
+WARNING:root:Too many boxes (157) to group, skipping.
+WARNING:root:Too many boxes (102) to group, skipping.
+WARNING:root:Too many boxes (198) to group, skipping.
+WARNING:root:Too many boxes (137) to group, skipping.
+WARNING:root:Too many boxes (105) to group, skipping.
+WARNING:root:Too many boxes (239) to group, skipping.
+WARNING:root:Cannot locate objid=3539
+premium 20069
+ACUITY - System Message
+------------------------->internal_target
+------------------------->external_target
+premium 0
+Admiral Insurance Group
+------------------------->internal_target
+------------------------->external_target
+premium 0
+403 Forbidden
+------------------------->internal_target
+------------------------->external_target
+premium 0
+Health Plans & Dental Coverage | Aetna
+------------------------->internal_target
+------------------------->external_target
+premium 0
+Home | Affirmative Insurance
+WARNING:root:Some characters could not be decoded, and were replaced with REPLACEMENT CHARACTER.
+WARNING:root:Some characters could not be decoded, and were replaced with REPLACEMENT CHARACTER.
+WARNING:root:Some characters could not be decoded, and were replaced with REPLACEMENT CHARACTER.
+WARNING:root:Some characters could not be decoded, and were replaced with REPLACEMENT CHARACTER.
+WARNING:root:Some characters could not be decoded, and were replaced with REPLACEMENT CHARACTER.
+WARNING:root:Some characters could not be decoded, and were replaced with REPLACEMENT CHARACTER.
+WARNING:root:Some characters could not be decoded, and were replaced with REPLACEMENT CHARACTER.
+WARNING:root:Some characters could not be decoded, and were replaced with REPLACEMENT CHARACTER.
+WARNING:root:Some characters could not be decoded, and were replaced with REPLACEMENT CHARACTER.
+WARNING:root:Some characters could not be decoded, and were replaced with REPLACEMENT CHARACTER.
+WARNING:root:Some characters could not be decoded, and were replaced with REPLACEMENT CHARACTER.
+------------------------->internal_target
+https://www.affirmative.com/Content/Documents/About/NominatingCharter.pdf
+https://www.affirmative.com/Content/Documents/About/Section16/Form 4 Kusumi, Gary Y - Filed 09-17-2013.pdf
+https://www.affirmative.com/Content/Documents/About/CodeOfConduct.pdf
+https://www.affirmative.com/Content/Documents/About/Section16/Form 4 McClure Michael J - filed 2-14-2014.pdf
+https://www.affirmative.com/Content/Documents/About/Section16/Form 3 - Rahe Eric C - filed 4-23-2014.pdf
+https://www.affirmative.com/Content/Documents/About/Section16/Form 3 - Killacky John P - filed 1-02-2014.pdf
+https://www.affirmative.com/Content/Documents/About/ExecutiveCharter.pdf
+https://www.affirmative.com/Content/Documents/About/CompensationCharter.pdf
+https://www.affirmative.com/Content/Documents/About/Section16/Form 4-A Kusumi, Gary Y - filed 09-17-2013 (Amends Form 4 filed 08-12-2011).pdf
+https://www.affirmative.com/Content/Documents/About/Section16/Form 4-A - Fonville Earl R - filed 2-19-2014 (Amends Form 4 filed 2-14-2014).pdf
+https://www.affirmative.com/Content/Documents/About/Section16/Form 4 - Fisher Joseph G - filed 2-14-2014.pdf
+https://www.affirmative.com/Content/Documents/About/CorporateGovernanceGuidelines.pdf
+https://www.affirmative.com/Content/Documents/About/InvestmentCharter.pdf
+https://www.affirmative.com/Content/Documents/About/AuditCharter.pdf
+https://www.affirmative.com/Content/Documents/About/Section16/Form 4 - Fonville Earl R - filed 2-14-2014.pdf
+https://www.affirmative.com/Content/Documents/About/Section16/Form 4-A - Fisher Joseph G - filed 2-19-2014 (Amends Form 4 filed 2-14-2014).pdf
+https://www.affirmative.com/Content/Documents/About/Section16/Form 4-A McClure Michael J - filed 2-19-2014 (Amends Form 4 filed 2-14-2014).pdf
+https://www.affirmative.com/Content/Documents/About/DirectorAttendance.pdf
+------------------------->external_target
+HTTP Error 400: Bad Request
+WARNING:root:Cannot locate objid=903
+HTTP Error 400: Bad Request
+HTTP Error 400: Bad Request
+HTTP Error 400: Bad Request
+HTTP Error 400: Bad Request
+HTTP Error 400: Bad Request
+HTTP Error 400: Bad Request
+HTTP Error 400: Bad Request
+HTTP Error 400: Bad Request
+HTTP Error 400: Bad Request
+HTTP Error 404: Not Found
+premium 0
+Aflac: Supplemental Insurance for Individuals & Groups
+WARNING:root:Some characters could not be decoded, and were replaced with REPLACEMENT CHARACTER.
+WARNING:root:Some characters could not be decoded, and were replaced with REPLACEMENT CHARACTER.
+WARNING:root:Some characters could not be decoded, and were replaced with REPLACEMENT CHARACTER.
+WARNING:root:Some characters could not be decoded, and were replaced with REPLACEMENT CHARACTER.
+WARNING:root:Some characters could not be decoded, and were replaced with REPLACEMENT CHARACTER.
+WARNING:root:Some characters could not be decoded, and were replaced with REPLACEMENT CHARACTER.
+WARNING:root:Some characters could not be decoded, and were replaced with REPLACEMENT CHARACTER.
+WARNING:root:Some characters could not be decoded, and were replaced with REPLACEMENT CHARACTER.
+WARNING:root:Some characters could not be decoded, and were replaced with REPLACEMENT CHARACTER.
+WARNING:root:Some characters could not be decoded, and were replaced with REPLACEMENT CHARACTER.
+WARNING:root:Some characters could not be decoded, and were replaced with REPLACEMENT CHARACTER.
+WARNING:root:Some characters could not be decoded, and were replaced with REPLACEMENT CHARACTER.
+WARNING:root:Some characters could not be decoded, and were replaced with REPLACEMENT CHARACTER.
+WARNING:root:Some characters could not be decoded, and were replaced with REPLACEMENT CHARACTER.
+WARNING:root:Some characters could not be decoded, and were replaced with REPLACEMENT CHARACTER.
+------------------------->internal_target
+http://www.aflac.com/docs/about-aflac/glba-aflac-privacy-practices-a90070-de.pdf
+http://www.aflac.com/docs/about-aflac/hipaa-notice-of-privacy-practices-a90069.pdf
+http://www.aflac.com/docs/about-aflac/millennials_parents_screen_final.pdf
+http://www.aflac.com/docs/about-aflac/glba-aflac-privacy-practices-a90070-nj.pdf
+http://www.aflac.com/docs/about-aflac/glba-aflac-privacy-practices-a90070-ca.pdf
+http://www.aflac.com/docs/about-aflac/glba-aflac-privacy-practices-a90070-pr.pdf
+http://www.aflac.com/docs/about-aflac/provider-election-agreement-with-w-9.pdf
+http://www.aflac.com/docs/about-aflac/grant-inquiry-form.pdf
+http://www.aflac.com/docs/about-aflac/hipaa-notice-of-privacy-practices-a90069-pr.pdf
+http://www.aflac.com/docs/about-aflac/glba-aflac-privacy-practices-a90070-all-states.pdf
+http://www.aflac.com/docs/about-aflac/glba-aflac-privacy-practices-a90070-il.pdf
+http://www.aflac.com/docs/about-aflac/glba-aflac-privacy-practices-a90070-03-mt.pdf
+http://www.aflac.com/docs/about-aflac/glba-aflac-privacy-practices-a90070-wa.pdf
+http://www.aflac.com/us/en/docs/insights/brokerworld_criticaltruthaboutcriticalcareinsurance.pdf
+http://www.aflac.com/docs/about-aflac/z150935-survey-fact-sheet_v6.pdf
+------------------------->external_target
+WARNING:root:undefined: <PDFType1Font: basefont='UFMFVK+HelveticaNeueLTStd-MdIt'>, 31
+WARNING:root:undefined: <PDFType1Font: basefont='UFMFVK+HelveticaNeueLTStd-MdIt'>, 30
+WARNING:root:Cannot locate objid=176
+WARNING:root:Parser index out of bounds
+WARNING:root:Cannot locate objid=18
+WARNING:root:Cannot locate objid=216
+premium 0
+Allied World
+------------------------->internal_target
+------------------------->external_target
+premium 0
+Lawyers' Malpractice Insurance
+    | ALPS Attorneys' Professional Liability
+------------------------->internal_target
+http://issuu.com/mboyle.alpsnet.com/docs/2014alpsannualreport_issuu/1media/821706/2013_alps_annual_report_web.pdf
+http://issuu.com/mboyle.alpsnet.com/docs/2014alpsannualreport_issuu/1media/916425/2014ALPSAnnualReport_Issuu.pdf
+------------------------->external_target
+HTTP Error 404: Not Found
+HTTP Error 404: Not Found
+premium 0
+American Equity Investment Life Holding Company
+------------------------->internal_target
+------------------------->external_target
+premium 0
+American Family Insurance Quotes for Auto, Home, Life and More
+------------------------->internal_target
+------------------------->external_target
+premium 0
+American Financial Group, Inc. (AFG) - Home
+------------------------->internal_target
+------------------------->external_target
+premium 0
+American International Group, Inc - Insurance from AIG in the US
+WARNING:root:Some characters could not be decoded, and were replaced with REPLACEMENT CHARACTER.
+WARNING:root:Some characters could not be decoded, and were replaced with REPLACEMENT CHARACTER.
+------------------------->internal_target
+http://www.aig.com/home_3171_411330.htmlChartis/internet/US/en/AIG_2013_AR%20with%2010-K_tcm3171-590454.pdf
+http://www.aig.com/home_3171_411330.htmlChartis/internet/US/en/2008annualreport_tcm3171-440902.pdf
+http://www.aig.com/home_3171_411330.htmlChartis/internet/US/en/2011annualreport_tcm3171-440893.pdf
+http://www.aig.com/home_3171_411330.htmlChartis/internet/US/en/2007annualreport_tcm3171-440907.pdf
+http://www.aig.com/home_3171_411330.htmlChartis/internet/US/en/2006annualreport_tcm3171-440888.pdf
+http://www.aig.com/home_3171_411330.htmlChartis/internet/US/en/2012%20AIG%20Annual%20Report%20(lower)_tcm3171-484181.pdf
+http://www.aig.com/home_3171_411330.htmlChartis/internet/US/en/2010annualreport_tcm3171-440896.pdf
+www-111.aig.com/AIG_Internet/AIG_2014_Annual_Report.pdf
+http://www.aig.com/home_3171_411330.htmlChartis/internet/US/en/2009annualreport_tcm3171-440899.pdf
+http://www.aig.com/home_3171_411330.htmlChartis/internet/US/en/2005annualreport_tcm3171-440890.pdf
+------------------------->external_target
+HTTP Error 404: Not Found
+HTTP Error 404: Not Found
+HTTP Error 404: Not Found
+HTTP Error 404: Not Found
+HTTP Error 404: Not Found
+HTTP Error 404: Not Found
+HTTP Error 404: Not Found
+unknown url type: 'www-111.aig.com/AIG_Internet/AIG_2014_Annual_Report.pdf'
+HTTP Error 404: Not Found
+HTTP Error 404: Not Found
+premium 0
+Welcome to American National Insurance Company
+WARNING:root:Some characters could not be decoded, and were replaced with REPLACEMENT CHARACTER.
+WARNING:root:Some characters could not be decoded, and were replaced with REPLACEMENT CHARACTER.
+WARNING:root:Some characters could not be decoded, and were replaced with REPLACEMENT CHARACTER.
+WARNING:root:Some characters could not be decoded, and were replaced with REPLACEMENT CHARACTER.
+------------------------->internal_target
+http://www.anico.com/cs/groups/public/documents/webcontent/anicocom_ambestpressrelease_6-.pdf
+http://www.anico.com/cs/groups/public/@anpub/@ancom/@content/documents/webcontent/anicocom_aniconypressrelease.pdf
+http://www.anico.com/cs/groups/public/@anpub/@ancom/@content/documents/webcontent/anicocom_2010annualreport.pdf
+------------------------->external_target
+WARNING:root:Cannot locate objid=4
+WARNING:root:Literal required: CIDSystemInfo
+WARNING:root:Literal required: CIDSystemInfo
+WARNING:root:Literal required: CIDSystemInfo
+WARNING:root:Literal required: CIDSystemInfo
+WARNING:root:Literal required: CIDSystemInfo
+WARNING:root:Literal required: CIDSystemInfo
+WARNING:root:Literal required: CIDSystemInfo
+WARNING:root:Literal required: CIDSystemInfo
+WARNING:root:Literal required: CIDSystemInfo
+WARNING:root:Literal required: CIDSystemInfo
+WARNING:root:Literal required: CIDSystemInfo
+WARNING:root:Literal required: CIDSystemInfo
+WARNING:root:Literal required: CIDSystemInfo
+WARNING:root:Literal required: CIDSystemInfo
+WARNING:root:Literal required: CIDSystemInfo
+WARNING:root:Literal required: CIDSystemInfo
+WARNING:root:Literal required: CIDSystemInfo
+WARNING:root:Literal required: CIDSystemInfo
+WARNING:root:Literal required: CIDSystemInfo
+WARNING:root:Literal required: CIDSystemInfo
+WARNING:root:Too many boxes (127) to group, skipping.
+WARNING:root:Too many boxes (114) to group, skipping.
+premium 724760
+Home - Amerisafe Insurance - Workers' Comp - Compensation
+------------------------->internal_target
+------------------------->external_target
+premium 0
+Ameritas
+------------------------->internal_target
+------------------------->external_target
+premium 0
+AmTrust - Small Business Property and Casualty Insurance
+------------------------->internal_target
+------------------------->external_target
+premium 0
+Anthem, Inc.
+------------------------->internal_target
+------------------------->external_target
+premium 0
+Assumption Life
+------------------------->internal_target
+------------------------->external_target
+premium 0
+Welcome to Assurant
+------------------------->internal_target
+//s1.q4cdn.com/131015182/files/doc_financials/annual/assurant_2004_ar.pdf
+//s1.q4cdn.com/131015182/files/doc_financials/annual/2012_Annual_Report_and_Form_10-K.pdf
+//s1.q4cdn.com/131015182/files/doc_presentations/2014/Investor Day Presentation_Q4 Web Systems.pdf
+//s1.q4cdn.com/131015182/files/doc_financials/annual/2010_Annual_Report_Form_10-K.pdf
+//s1.q4cdn.com/131015182/files/doc_presentations/2015/Q3-2015-IR-presentation-11-17.pdf
+//s1.q4cdn.com/131015182/files/doc_financials/annual/2005 AR.pdf
+//s1.q4cdn.com/131015182/files/doc_financials/annual/2006 AR Final.pdf
+//s1.q4cdn.com/131015182/files/events/2014/AIZ Investor Day 2014 Transcript.vFINAL.pdf
+//s1.q4cdn.com/131015182/files/doc_financials/annual/AIZ_AR_09.pdf
+//s1.q4cdn.com/131015182/files/doc_financials/annual/AIZ_Assurant_AR_2014_v003_f3s0s9.pdf
+//s1.q4cdn.com/131015182/files/doc_financials/annual/2011_Annual_Report_Form_10-K.pdf
+//s1.q4cdn.com/131015182/files/doc_financials/annual/Annual Report.pdf
+//s1.q4cdn.com/131015182/files/doc_financials/annual/AIZ 2007 AR.pdf
+------------------------->external_target
+http://assurant2014.q4web.com/files/doc_downloads/publications/Assurant_2013_Annual_Report_and_Form10K.pdf
+//s1.q4cdn.com/131015182/files/doc_financials/annual/assurant_2004_ar.pdf
+//s1.q4cdn.com/131015182/files/doc_financials/annual/2012_Annual_Report_and_Form_10-K.pdf
+//s1.q4cdn.com/131015182/files/doc_presentations/2014/Investor Day Presentation_Q4 Web Systems.pdf
+//s1.q4cdn.com/131015182/files/doc_financials/annual/2006 AR Final.pdf
+//s1.q4cdn.com/131015182/files/doc_financials/annual/2005 AR.pdf
+//s1.q4cdn.com/131015182/files/doc_financials/annual/2010_Annual_Report_Form_10-K.pdf
+//s1.q4cdn.com/131015182/files/doc_presentations/2015/Q3-2015-IR-presentation-11-17.pdf
+//s1.q4cdn.com/131015182/files/events/2014/AIZ Investor Day 2014 Transcript.vFINAL.pdf
+//s1.q4cdn.com/131015182/files/doc_financials/annual/AIZ_AR_09.pdf
+//s1.q4cdn.com/131015182/files/doc_financials/annual/AIZ_Assurant_AR_2014_v003_f3s0s9.pdf
+//s1.q4cdn.com/131015182/files/doc_financials/annual/2011_Annual_Report_Form_10-K.pdf
+//s1.q4cdn.com/131015182/files/doc_financials/annual/Annual Report.pdf
+//s1.q4cdn.com/131015182/files/doc_financials/annual/AIZ 2007 AR.pdf
+WARNING:root:Cannot locate objid=1023
+WARNING:root:Too many boxes (111) to group, skipping.
+WARNING:root:undefined: <PDFTrueTypeFont: basefont='UARTMS+TTE1413B60t00'>, 1
+WARNING:root:undefined: <PDFTrueTypeFont: basefont='UARTMS+TTE1413B60t00'>, 1
+WARNING:root:undefined: <PDFTrueTypeFont: basefont='UARTMS+TTE1413B60t00'>, 1
+WARNING:root:undefined: <PDFTrueTypeFont: basefont='UARTMS+TTE1413B60t00'>, 1
+WARNING:root:Unknown operator: 'x\x9c¨ª\x93wT¨®W\x14?\x7f?'
+WARNING:root:Unknown operator: '\x94?a¡Â\x8f?¡Â\x12B'
+WARNING:root:Too many boxes (138) to group, skipping.
+WARNING:root:Too many boxes (125) to group, skipping.
+HTTP Error 505: HTTP Version Not Supported
+WARNING:root:Too many boxes (150) to group, skipping.
+WARNING:root:Too many boxes (1649) to group, skipping.
+WARNING:root:Too many boxes (754) to group, skipping.
+HTTP Error 505: HTTP Version Not Supported
+WARNING:root:Cannot locate objid=690
+WARNING:root:Too many boxes (123) to group, skipping.
+WARNING:root:Too many boxes (124) to group, skipping.
+WARNING:root:Too many boxes (102) to group, skipping.
+WARNING:root:Too many boxes (149) to group, skipping.
+WARNING:root:Too many boxes (108) to group, skipping.
+<urlopen error [Errno 11001] getaddrinfo failed>
+<urlopen error [Errno 11001] getaddrinfo failed>
+<urlopen error [Errno 11001] getaddrinfo failed>
+<urlopen error [Errno 11001] getaddrinfo failed>
+<urlopen error [Errno 11001] getaddrinfo failed>
+HTTP Error 505: HTTP Version not supported
+HTTP Error 505: HTTP Version not supported
+premium 3196647

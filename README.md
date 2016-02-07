@@ -26,3 +26,14 @@ This web crawler is designed specifically for scraping premium and annual revenu
 + phantomjs.exe is a web browser used for executing JavaScript
 + test package is a crawler for scraping definition of words on wiki you can run test.py to see the result
 
+
+##Reference
+
+
+
+
+##Example
+
+![image](https://github.com/kyao4/web_crawler/raw/master/files/first premium.png)
+![image](https://github.com/kyao4/web_crawler/raw/master/files/second premium.png)
+![image](https://github.com/kyao4/web_crawler/raw/master/files/third premium.png)
