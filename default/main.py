@@ -7,7 +7,6 @@ Created on 2016/1/7
 
 from urllib.request import urlopen
 from urllib.error import HTTPError, URLError
-from urllib.parse import quote
 from bs4 import BeautifulSoup
 from selenium import webdriver
 import os
@@ -20,10 +19,6 @@ from pdfminer.pdfinterp import PDFResourceManager, process_pdf
 from pdfminer.converter import TextConverter
 from pdfminer.layout import LAParams
 from io import StringIO
-# from pdfminer.pdfparser import PDFParser, PDFDocument, PDFNoOutlines
-# from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
-# from pdfminer.converter import PDFPageAggregator
-# from pdfminer.layout import LAParams, LTTextBox, LTTextLine, LTFigure, LTImage
 class Website():
     def __init__(self, url):
         self.__url = url # save root url
@@ -37,7 +32,14 @@ class Website():
         
         
     def getPremium(self):
+        '''
+        This function basically gets target urls and extract the data from the urls 
+        you found.
+        '''
+        #first get the url that may contain the data that you want.
         self.getTargeturl()
+        
+        #debug code, examine the target url.
 #         print('------------------------->internal_target')
 # #         add filtered tag to target set
 #         for tag in self.__interalTargetTag:
@@ -47,6 +49,7 @@ class Website():
 #         for tag in self.__exteralTargetTag:
 #             print(tag)        
          
+        #Then extract data from the target url
         targetData = self.getTargetData()
         result = 0
         for v in targetData:
@@ -55,23 +58,29 @@ class Website():
         return result
 
     def getTargeturl(self, rel_url = '', abs_url = ''):
-        
+        '''
+        if abs_url exists, it will use that to get current soup.
+        if it doesn't exist, it will use rel_url to get current soup.
+        1. set current page and then get all internal Links and external links
+        2. store target tags(internal/external) to __interalTargetTag and __exteralTargetTag
+        3. filter target tags with keywords.
+        4. do this recursively with all the pages in this website.
+        '''
         self.__currentSoup = self.__getSoup(rel_url, abs_url)
         #if current url is not accessible stop recurrence
         if not self.__currentSoup:
             return
         
-        # first get all internal and external tags and links
-        #caution: add all the internal url to internalurl set before filter
+        # first get all internal and external tags and links on current page
         cur_inter_tag = self.getInternalLinks()
-#         for tag in cur_inter_tag:
-#             if tag.attrs['href'] == '//s1.q4cdn.com/405296365/files/doc_financials/2015/ACE-Limited-2014-Annual-Report.pdf':
-#                 pass
         cur_exter_tag = self.getExternalLinks()
+        #caution: add all the internal url to internalurl set before filter because you are not going to
+        #filter internal links that you want to search recursively.
         self.__interalurl = self.__interalurl.union({tag.attrs['href']for tag in cur_inter_tag})
+        #add target tag to their tag sets
         self.__interalTargetTag = self.__interalTargetTag.union(cur_inter_tag)
         self.__exteralTargetTag = self.__exteralTargetTag.union(cur_exter_tag)
-        #filter all the tags with keywords
+        #filter all the tags with keywords 
         cur_inter_tag = {tag for tag in cur_inter_tag if 
                             re.search('annual.*?report|press.*?release|about|investor', tag.attrs['href'], re.IGNORECASE) or 
                             re.search('annual.*?report|press.*?release|about|investor', str(tag.get_text().strip()), re.IGNORECASE)}
@@ -81,44 +90,42 @@ class Website():
         self.__exteralTargetTag = {tag for tag in self.__exteralTargetTag if 
                             re.search('annual.*?report|press.*?release|about|investor', tag.attrs['href'], re.IGNORECASE) or 
                             re.search('annual.*?report|press.*?release|about|investor', str(tag.get_text().strip()), re.IGNORECASE)}        
-#         print('------------------------->internal')
-        #add filtered tag to target set
-#         for tag in cur_inter_tag:
-#             print(tag)
-        #search all the internal set recursively
+        #search all the internal set recursively 
         for tag in cur_inter_tag:
             if re.search('^(http|www)', tag.attrs['href'], re.IGNORECASE):
                 self.getTargeturl(abs_url = tag.attrs['href']) #this is internel link but have http://, so don't add root
             else:
                 self.getTargeturl(tag.attrs['href'])
-                
-        pass
+
     
     def getInternalLinks(self):
+        '''
+        Get all the internal links in current page.
+        '''
         internalTag = set()
         for tag in self.__currentSoup.find_all('a', {'href': re.compile('^(/|.*' + self.extractRooturl() + ')')}): #include root url
             if tag.attrs['href'] not in self.__interalurl:
-#                 href = tag.attrs['href']
-#                 self.__internalurl.add(href)
                 internalTag.add(tag)
-#                 print(href)
-#                 print(tag)
+
         return internalTag
             
     def getExternalLinks(self):
+        '''
+        Get all the external links in current page.
+        '''
         externalTag = set()
         for tag in self.__currentSoup.find_all('a', {'href': re.compile('^(http|www|//)((?!' + self.extractRooturl() + ').)*$')}): #exclude root url
             if tag not in self.__exteralTargetTag:
-#                 href = tag.attrs['href']                
-#                 self.__externalurl.add(href)
                 externalTag.add(tag)
-#                 print(href)
-#                 print(tag)
         return externalTag
     
     
     @staticmethod
     def readPDF(pdfFile):
+        '''
+        @pdfFile the file with type of pdf.
+        @return: strings in this pdf.
+        '''
         pass
         try:
             rsrcmgr = PDFResourceManager()
@@ -136,10 +143,13 @@ class Website():
     
     @staticmethod
     def getpdfFile(url):
+        '''
+        @url url must a pdf file.
+        @return: file with type of pdf
+        '''
         if not re.match('^http', url, re.IGNORECASE):
             url = url.replace('//', 'https://')
         try:
-#             print(quote(url), safe='/\:')
             pdfFile = urlopen(url)
         except HTTPError as e:
             print(e)
@@ -154,14 +164,20 @@ class Website():
     
     
     def getTargetData(self):
+        '''
+        1. Do some changes with interanl url and external url.
+        2. convert external pdfs to strings and find data with regular expression. 
+        if the data is not empty, return the result.
+        3. convert internal pdfs to strings and find data with regular expression.
+        '''
         #at this point we should have all the target tag(url) in this website, all we need 
-        #to do is search each page's table and search pdf for target data.
+        #to do is to search each page's table and search pdf for target data.
         targetpdf_internal = {re.sub('https?://|www.' + self.extractRooturl(), '', tag.attrs['href']) for tag in self.__interalTargetTag if re.search('.*\.pdf', tag.attrs['href'], re.IGNORECASE)}
         targetpdf_external = {tag.attrs['href'] for tag in self.__exteralTargetTag if re.search('.*\.pdf', tag.attrs['href'], re.IGNORECASE)}
         # add internal root url
         targetpdf_internal = [re.sub('^/(?!/)', self.__url, url)  for url in targetpdf_internal]
         
-        #debug code
+        #debug code print out target pdf url
         print('------------------------->internal_target')
         for url in targetpdf_internal:
             print(url)
@@ -179,7 +195,6 @@ class Website():
             if not outputString:
                 continue
             
-#             resultList_ex = [int(premium[1].replace(',', '')) for premium in re.findall('(premium[s]? written|written premium[s]?)[\s\S]{0,500}?(\d+(,\d+)+)|written premium[s]?[\s\S]{0,500}?(\d+(,\d+)+)', outputString, re.IGNORECASE)]
             #process result by using regular expression
             resultList_ex = []
             for premium in re.findall(r'(premium[s]? written|written premium[s]?)[\s\S]{0,500}?(\d+(,\d+)+)([\s\S]{1,60}(\d{3}(,\d+)+))?([\s\S]{1,275}(\d,\d{3},(\d+)+))?', outputString, re.IGNORECASE):
@@ -199,7 +214,6 @@ class Website():
             outputString = Website.readPDF(pdfFile)
             if not outputString:
                 continue
-#             resultList_in = [int(premium[1].replace(',', '')) for premium in re.findall('(premium[s]? written|written premium[s]?)[\s\S]{0,500}?(\d+(,\d+)+)|written premium[s]?[\s\S]{0,500}?(\d+(,\d+)+)', outputString, re.IGNORECASE)]
             resultList_in = []
             for premium in re.findall(r'(premium[s]? written|written premium[s]?)[\s\S]{0,500}?(\d+(,\d+)+)([\s\S]{1,60}(\d{3}(,\d+)+))?([\s\S]{1,275}(\d,\d{3},(\d+)+))?', outputString, re.IGNORECASE):
                 if len(premium[1])> 2 :
@@ -217,12 +231,22 @@ class Website():
         
     
     def extractRooturl(self):
+        '''
+        e.g.: get google.com part of https://www.google.com/
+        '''
         url = re.sub('http://|www.', '', self.__url)
         addressParts = url.split("/")
         return addressParts[0]
     
       
     def __getSoup(self, rel_url = '', abs_url = ''):
+        '''
+        Get Soup object of the url you specified.
+        if abs_url exists, it will use that to get current soup.
+        if it doesn't exist, it will use rel_url to get current soup.
+        handle all kinds of errors.
+        '''
+        
         #eliminate escape characters content with UTF-8
         rel_url = bytes(rel_url, 'UTF-8')
         rel_url = rel_url.decode('ascii', 'ignore')
@@ -261,15 +285,12 @@ class Website():
         finally:
             conn.close()
         
-#         if self.__url == 'http://www.aegislink.com/':
-#             pass
         #if this site content meta redirect, attach new url to root url and reopen it.
         #eg. <meta content="1; URL=/aegislink.html" http-equiv="Refresh">
         redirectTag = soup.find('meta', {'content' : re.compile('url=', re.IGNORECASE), 'http-equiv' : re.compile('Refresh', re.IGNORECASE)} )
         if redirectTag:
             m = re.search(r'url=/(.*)', redirectTag.attrs['content'], re.IGNORECASE)
             return self.__getSoup(self.__url + m.group(1))
-#TODO not working!!
 
         # <link href="http://www.acegroup.com" rel="canonical"/>
         # if this site use link to redirect url to real one, we have to recognize it
@@ -320,45 +341,13 @@ class Website():
     def openSite(self, rel_url = ''):
         webbrowser.open(self.__url + rel_url)
      
-     
-# def extractPremium(pdfFile):
-# 
-#     # create a parser object associated with the file object
-#     parser = PDFParser(pdfFile)
-#     # create a PDFDocument object that stores the document structure
-#     doc = PDFDocument()
-#     # connect the parser and document objects
-#     parser.set_document(doc)
-#     doc.set_parser(parser)
-#     # supply the password for initialization
-#     doc.initialize('')
-# 
-#     if not doc.is_extractable:
-#         return 0
-#     
-#     rsrcmgr = PDFResourceManager()
-#     laparams = LAParams()
-#     device = PDFPageAggregator(rsrcmgr, laparams=laparams)
-#     interpreter = PDFPageInterpreter(rsrcmgr, device)
-# 
-#     # Process each page contained in the document.
-#     for page in doc.get_pages():
-#         interpreter.process_page(page)
-#         layout = device.get_result()
-#         print(layout)
-        
+#debug code: store strings of one pdf file to a txt file.
 # pdfFile = Website.getpdfFile('http://s1.q4cdn.com/131015182/files/doc_financials/annual/AIZ_Assurant_AR_2014_v003_f3s0s9.pdf')
 # outputString = Website.readPDF(pdfFile)
 # print(outputString)
-
-
 # fout = open('../result3.txt', 'wt',encoding = 'utf-8')
 # fout.write(outputString)
 # fout.close()
-# extractPremium(pdfFile)
-# url = 'http://www.allstate.com/'
-# site = Website(url)
-# print(site.getTitle())
 
 with open('list_of_url.csv', 'rt') as urlFile:
     csvReader = csv.reader(urlFile)
